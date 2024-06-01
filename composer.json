@@ -20,5 +20,8 @@
                 "Logger\\TelegramLoggerServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "laravel/pint": "^1.16"
     }
 }

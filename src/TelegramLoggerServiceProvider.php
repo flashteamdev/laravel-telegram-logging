@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Class TelegramLoggerServiceProvider
- * @package Logger
  */
 class TelegramLoggerServiceProvider extends ServiceProvider
 {
@@ -17,7 +16,7 @@ class TelegramLoggerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/telegram-logger.php', 'telegram-logger');
+        $this->mergeConfigFrom(__DIR__.'/../config/telegram-logger.php', 'telegram-logger');
     }
 
     /**
@@ -29,6 +28,6 @@ class TelegramLoggerServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../views', 'laravel-telegram-logging');
         $this->publishes([__DIR__.'/../views' => base_path('resources/views/vendor/laravel-telegram-logging')], 'views');
-        $this->publishes([__DIR__ . '/../config/telegram-logger.php' => config_path('telegram-logger.php')], 'config');
+        $this->publishes([__DIR__.'/../config/telegram-logger.php' => config_path('telegram-logger.php')], 'config');
     }
 }

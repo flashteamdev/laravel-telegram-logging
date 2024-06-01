@@ -2,11 +2,11 @@
 
 namespace Logger;
 
-use Logger\Jobs\TelegramSendMessageJob;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Logger\Jobs\TelegramSendMessageJob;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
@@ -75,7 +75,7 @@ class TelegramHandler extends AbstractProcessingHandler
         // trying to make request and send notification
         try {
             dispatch(new TelegramSendMessageJob(
-                $this->botToken,
+                Str::of($this->botToken)->explode(',')->random(),
                 $this->chatId,
                 $this->formatText($record),
                 $this->getConfigValue('api_host'),
@@ -123,7 +123,7 @@ class TelegramHandler extends AbstractProcessingHandler
                 'appEnv' => $this->appEnv,
                 'formatted' => $record->formatted,
             ])
-            )
+        )
             ->render();
     }
 
