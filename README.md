@@ -6,7 +6,7 @@ Send logs to Telegram chat via Telegram bot
 
 ```
 
-composer require flashteam/laravel-telegram-logging
+composer require flashteamdev/laravel-telegram-logging
 
 ```
 
