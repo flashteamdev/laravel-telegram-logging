@@ -14,7 +14,7 @@ Define Telegram Bot Token and chat id (users telegram id) and set as environment
 Add to <b>.env</b>
 
 ```
-TELEGRAM_LOGGER_BOT_TOKEN=id:token
+TELEGRAM_LOGGER_BOT_TOKEN="id1:token1,id2:token2"
 TELEGRAM_LOGGER_CHAT_ID=chat_id
 ```
 
