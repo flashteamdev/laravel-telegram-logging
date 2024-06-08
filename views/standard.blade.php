@@ -5,4 +5,3 @@
 @if (!empty($exception))
   <pre><code class="language-log">{{ $exception }}</code></pre>
 @endif
-[{{ $datetime->format('Y-m-d H:i:s') }}] <b>{{ $appName }}</b> {{ $appEnv }}.{{ $level_name }}
