@@ -24,6 +24,7 @@ class TelegramSendMessageJob implements ShouldQueue
         public string $text,
         public ?string $host = null,
         public ?string $proxy = null,
+        public ?string $threadId = null,
     ) {
         //
     }
@@ -40,6 +41,7 @@ class TelegramSendMessageJob implements ShouldQueue
                 [
                     'text' => $text,
                     'chat_id' => $this->chatId,
+                    'message_thread_id' => $this->threadId,
                     'parse_mode' => 'html',
                 ],
                 config('telegram-logger.options', [])
@@ -58,7 +60,7 @@ class TelegramSendMessageJob implements ShouldQueue
                 file_get_contents($url);
             }
         } catch (Exception $exception) {
-            Log::channel('single')->error($exception->getMessage());
+            Log::channel('daily')->error($exception->getMessage());
         }
     }
 }
