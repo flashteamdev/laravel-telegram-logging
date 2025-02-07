@@ -54,6 +54,8 @@ class TelegramSendMessageJob implements ShouldQueue
         public ?array $replyParameters = null,
         // Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
         public ?array $replyMarkup = null,
+
+        public ?bool $disableWebPagePreview = true,
         // Selfhosted Telegram API host
         public ?string $host = 'https://api.telegram.org',
         // Proxy server
@@ -88,6 +90,7 @@ class TelegramSendMessageJob implements ShouldQueue
                         'message_effect_id' => $this->messageEffectId,
                         'reply_parameters' => $this->replyParameters,
                         'reply_markup' => $this->replyMarkup,
+                        'disable_web_page_preview' => $this->disableWebPagePreview,
                     ],
                     $this->options,
                 )
