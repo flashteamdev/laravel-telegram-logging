@@ -28,11 +28,36 @@ class TelegramSendMessageJob implements ShouldQueue
      */
     public function __construct(
         public string $botToken,
+        // Unique identifier for the target chat or username of the target channel (in the format @channelusername)
         public string|int $chatId,
+        // Text of the message to be sent, 1-4096 characters after entities parsing
         public string $text,
-        public ?string $host = null,
+        // Unique identifier of the business connection on behalf of which the message will be sent
+        public ?string $businessConnectionId = null,
+        // Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+        public ?int $messageThreadId = null,
+        // Mode for parsing entities in the message text. See formatting options for more details.
+        public ?string $parseMode = 'html',
+        // A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
+        public ?array $entities = null,
+        // Link preview generation options for the message
+        public ?array $linkPreviewOptions = null,
+        // Sends the message silently. Users will receive a notification with no sound.
+        public ?bool $disableNotification = null,
+        // Protects the contents of the sent message from forwarding and saving
+        public ?bool $protectContent = null,
+        // Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+        public ?bool $allowPaidBroadcast = null,
+        // Unique identifier of the message effect to be added to the message; for private chats only
+        public ?string $messageEffectId = null,
+        // Description of the message to reply to
+        public ?array $replyParameters = null,
+        // Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+        public ?array $replyMarkup = null,
+        // Selfhosted Telegram API host
+        public ?string $host = 'https://api.telegram.org',
+        // Proxy server
         public ?string $proxy = null,
-        public ?string $threadId = null,
         /**
          * @see https://core.telegram.org/bots/api#sendmessage
          */
@@ -47,18 +72,24 @@ class TelegramSendMessageJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            $text = Str::limit($this->text, 4000);
-
             $httpQuery = http_build_query(
                 array_merge(
                     [
-                        'text' => $text,
                         'chat_id' => $this->chatId,
-                        // 'message_thread_id' => $this->threadId,
-                        'parse_mode' => 'html',
+                        'text' => Str::limit($this->text, 4090),
+                        'business_connection_id' => $this->businessConnectionId,
+                        'message_thread_id' => $this->messageThreadId,
+                        'parse_mode' => $this->parseMode,
+                        'entities' => $this->entities,
+                        'link_preview_options' => $this->linkPreviewOptions,
+                        'disable_notification' => $this->disableNotification,
+                        'protect_content' => $this->protectContent,
+                        'allow_paid_broadcast' => $this->allowPaidBroadcast,
+                        'message_effect_id' => $this->messageEffectId,
+                        'reply_parameters' => $this->replyParameters,
+                        'reply_markup' => $this->replyMarkup,
                     ],
-                    config('telegram-logger.options', []),
-                    $this->options
+                    $this->options,
                 )
             );
 

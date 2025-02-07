@@ -81,12 +81,14 @@ class TelegramHandler extends AbstractProcessingHandler
         // trying to make request and send notification
         try {
             dispatch(new TelegramSendMessageJob(
-                Str::of($this->botToken)->explode(',')->random(),
-                $this->chatId,
-                $this->formatText($record),
-                $this->getConfigValue('api_host'),
-                $this->getConfigValue('proxy'),
-                $this->messageThreadId,
+                botToken: Str::of($this->botToken)->explode(',')->random(),
+                chatId: $this->chatId,
+                text: $this->formatText($record),
+                parseMode: 'html',
+                messageThreadId: $this->messageThreadId,
+                host: $this->getConfigValue('api_host'),
+                proxy: $this->getConfigValue('proxy'),
+                options: config('telegram-logger.options')
             ));
         } catch (Exception $exception) {
             Log::channel('daily')->error($exception->getMessage());
