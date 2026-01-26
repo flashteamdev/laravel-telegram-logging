@@ -25,4 +25,7 @@ return [
         'disable_web_page_preview' => true,
         // 'disable_notification' => false
     ],
+
+    // Exclude logs containing these strings
+    'exclude_words' => env('TELEGRAM_LOGGER_EXCLUDE_WORDS') ? explode(',', env('TELEGRAM_LOGGER_EXCLUDE_WORDS')) : [],
 ];

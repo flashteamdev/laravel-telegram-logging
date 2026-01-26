@@ -120,3 +120,22 @@ To use a proxy server, set the variable in the .env
 ```
 TELEGRAM_LOGGER_PROXY=proxy_server.com:port
 ```
+
+## Exclude logs
+
+To ignore logs containing specific text, add the following to your `.env` file:
+
+```
+TELEGRAM_LOGGER_EXCLUDE_WORDS="word1,word2"
+```
+
+Or you can add them to your `config/logging.php` channel:
+
+```php
+'telegram' => [
+    'driver' => 'custom',
+    'via'    => Logger\TelegramLogger::class,
+    'level'  => 'debug',
+    'exclude_words' => ['word1', 'word2'],
+]
+```

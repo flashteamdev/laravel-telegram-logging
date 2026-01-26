@@ -78,6 +78,11 @@ class TelegramHandler extends AbstractProcessingHandler
             throw new InvalidArgumentException('Bot token or chat id is not defined for Telegram logger');
         }
 
+        $excludeWords = $this->getConfigValue('exclude_words');
+        if (! empty($excludeWords) && Str::contains($record->message, (array) $excludeWords)) {
+            return;
+        }
+
         // trying to make request and send notification
         try {
             dispatch(new TelegramSendMessageJob(
@@ -136,7 +141,7 @@ class TelegramHandler extends AbstractProcessingHandler
             ->render();
     }
 
-    private function getConfigValue(string $key, ?string $defaultConfigKey = null): string|int|null
+    private function getConfigValue(string $key, ?string $defaultConfigKey = null): mixed
     {
         if (isset($this->config[$key])) {
             return $this->config[$key];
