@@ -13,7 +13,7 @@ class TelegramLogger
      * Create a custom Monolog instance.
      *
      * @param  array{driver: string, via: string, level: string}  $config
-     * @return \Monolog\Logger
+     * @return Logger
      */
     public function __invoke(array $config)
     {

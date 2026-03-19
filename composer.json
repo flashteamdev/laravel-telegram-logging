@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.2",
         "monolog/monolog": "^3.0",
-        "laravel/framework": "^10.0 | ^11.0 | ^12.0"
+        "laravel/framework": "^10.0 | ^11.0 | ^12.0 | ^13.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -22,6 +22,6 @@
         }
     },
     "require-dev": {
-        "laravel/pint": "^1.20"
+        "laravel/pint": "^1.29"
     }
 }
